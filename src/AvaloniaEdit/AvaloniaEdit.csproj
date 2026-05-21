@@ -9,13 +9,19 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="**\*.xshd;**\*.resx;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <AvaloniaResource Include="**\*.xaml;Assets\*;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  <PropertyGroup Condition="Exists('$(AvaloniaSourceDir)')">
+    <IncludeAvaloniaGenerators>true</IncludeAvaloniaGenerators>
+  </PropertyGroup>
+  <ItemGroup Condition="Exists('$(AvaloniaSourceDir)')">
+    <ProjectReference Include="$(AvaloniaSourceDir)packages\Avalonia\Avalonia.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="!Exists('$(AvaloniaSourceDir)')">
+    <PackageReference Include="Avalonia" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" />
+    <EmbeddedResource Include="**\*.xshd;**\*.resx;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+    <AvaloniaResource Include="**\*.xaml;Assets\*;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,4 +38,7 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Import Project="$(AvaloniaSourceDir)build\BuildTargets.targets" Condition="Exists('$(AvaloniaSourceDir)')" />
+  <Import Project="$(AvaloniaSourceDir)build\SourceGenerators.props" Condition="Exists('$(AvaloniaSourceDir)')" />
 </Project>

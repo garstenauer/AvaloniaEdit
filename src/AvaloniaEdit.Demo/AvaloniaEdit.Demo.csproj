@@ -6,22 +6,34 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\SampleFiles\**\*" />
+  <PropertyGroup Condition="Exists('$(AvaloniaSourceDir)')">
+    <IncludeAvaloniaGenerators>true</IncludeAvaloniaGenerators>
+  </PropertyGroup>
+  <ItemGroup Condition="Exists('$(AvaloniaSourceDir)')">
+    <ProjectReference Include="$(AvaloniaSourceDir)packages\Avalonia\Avalonia.csproj" />
+    <ProjectReference Include="$(AvaloniaSourceDir)src\Avalonia.Desktop\Avalonia.Desktop.csproj" />
+    <ProjectReference Include="$(AvaloniaSourceDir)src\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Resources\SampleFiles\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition="!Exists('$(AvaloniaSourceDir)')">
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
     <ProjectReference Include="..\AvaloniaEdit.TextMate\AvaloniaEdit.TextMate.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SampleFiles\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Resources\SampleFiles\**\*.*" />
+  </ItemGroup>
+
+  <Import Project="$(AvaloniaSourceDir)build\BuildTargets.targets" Condition="Exists('$(AvaloniaSourceDir)')" />
+  <Import Project="$(AvaloniaSourceDir)build\SourceGenerators.props" Condition="Exists('$(AvaloniaSourceDir)')" />
 </Project>

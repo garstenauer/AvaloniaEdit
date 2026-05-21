@@ -28,4 +28,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
   </ItemGroup>
+
+  <!-- Use ProjectReferences instead of PackageReferences when Avalonia is next to AvaloniaEdit. -->
+  <PropertyGroup>
+    <AvaloniaSourceDir>$(MSBuildThisFileDirectory)..\Avalonia\</AvaloniaSourceDir>
+    <AvaloniaVersion>12.0.1</AvaloniaVersion>
+  </PropertyGroup>
+
 </Project>

@@ -1,4 +1,11 @@
 <Solution>
+  <Folder Name="/Avalonia/">
+    <Project Path="../Avalonia/packages/Avalonia/Avalonia.csproj" />
+    <Project Path="../Avalonia/src/Avalonia.Build.Tasks/Avalonia.Build.Tasks.csproj" />
+    <Project Path="../Avalonia/src/Avalonia.Desktop/Avalonia.Desktop.csproj" />
+    <Project Path="../Avalonia/src/Avalonia.Themes.Fluent/Avalonia.Themes.Fluent.csproj" />
+    <Project Path="../Avalonia/src/Avalonia.Themes.Simple/Avalonia.Themes.Simple.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="azure-pipelines.yml" />
     <File Path="Directory.Build.props" />

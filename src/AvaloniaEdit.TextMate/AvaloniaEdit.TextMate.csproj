@@ -5,14 +5,19 @@
     <PackageDescription>TextMate integration for AvaloniaEdit.</PackageDescription>
   </PropertyGroup>
 
+  <ItemGroup Condition="Exists('$(AvaloniaSourceDir)')">
+    <ProjectReference Include="$(AvaloniaSourceDir)packages\Avalonia\Avalonia.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="!Exists('$(AvaloniaSourceDir)')">
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" />
     <PackageReference Include="TextMateSharp" />
     <PackageReference Include="TextMateSharp.Grammars" />
   </ItemGroup>
-
 </Project>
